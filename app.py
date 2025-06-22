@@ -188,6 +188,26 @@ def profile():
     following = user.following.all()
     return render_template('profile.html', user=user, followers=followers, following=following)
 
+@app.route('/add_pet', methods=['GET', 'POST'])
+def add_pet():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+        pet_name = request.form['pet_name']
+        pet_type = request.form['pet_type']
+        pet_age = int(request.form['pet_age'])
+        pet_breed = request.form['pet_breed']
+        pet_details = request.form['pet_details']
+        
+        new_pet = Pet(name=pet_name, pet_type=pet_type, age=pet_age, breed=pet_breed,
+                      details=pet_details, user_id=session['user_id'])
+        db.session.add(new_pet)
+        db.session.commit()
+        flash('New pet added successfully!', 'success')
+        return redirect(url_for('profile'))
+    return render_template('add_pet.html')
+
+
 @app.route('/api/feed')
 def api_feed():
     if 'user_id' not in session:

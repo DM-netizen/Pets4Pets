@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Add New Pet</h2>
+<form method="POST">
+    <input type="text" name="pet_name" placeholder="Pet Name" required class="form-control mb-2">
+    <input type="text" name="pet_type" placeholder="Pet Type" required class="form-control mb-2">
+    <input type="number" name="pet_age" placeholder="Pet Age" required class="form-control mb-2">
+    <input type="text" name="pet_breed" placeholder="Pet Breed" required class="form-control mb-2">
+    <textarea name="pet_details" placeholder="Pet Details" class="form-control mb-2"></textarea>
+    <button type="submit" class="btn btn-primary">Add Pet</button>
+</form>
+{% endblock %}
