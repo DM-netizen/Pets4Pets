@@ -2,7 +2,7 @@
 
 ## Overview
 
-Pets4Pets is an innovative social media web application designed for pet owners to connect, share updates, and discover fellow pet enthusiasts. Inspired by the "Design Twitter" problem from LeetCode, this platform leverages Object-Oriented Design principles, a real database (SQLite), and modern web technologies to deliver a seamless user experience.
+Pets4Pets is an innovative social media web application designed for pet owners to connect, share updates, and discover fellow pet enthusiasts. This platform leverages Object-Oriented Design principles, a real database (SQLite), and modern web technologies to deliver a seamless user experience.
 
 ---
 
@@ -18,6 +18,7 @@ Pets4Pets is an innovative social media web application designed for pet owners 
 * **Flash Messaging:** Informative messages for user actions like following/unfollowing.
 * **Dynamic Feed Refresh:** Auto-updates the feed every 10 seconds using JavaScript.
 * **Modern UI:** Responsive and intuitive interface powered by Bootstrap 5.
+* **Add Pet Feature:** Users can add more pets to their profile through a dedicated form in the navigation bar.
 
 ---
 
