@@ -1,0 +1,27 @@
+<!-- templates/profile.html -->
+{% extends "base.html" %}
+{% block content %}
+<h2>My Profile</h2>
+<p><strong>Username:</strong> {{ user.username }}</p>
+
+<h4>My Pets:</h4>
+<ul class="list-group mb-3">
+    {% for pet in user.pets %}
+        <li class="list-group-item">{{ pet.name }} ({{ pet.pet_type }}, {{ pet.age }} yrs, {{ pet.breed }}) - {{ pet.details }}</li>
+    {% endfor %}
+</ul>
+
+<h4>Followers ({{ followers|length }}):</h4>
+<ul class="list-group mb-3">
+    {% for follower in followers %}
+        <li class="list-group-item">{{ follower.username }}</li>
+    {% endfor %}
+</ul>
+
+<h4>Following ({{ following|length }}):</h4>
+<ul class="list-group">
+    {% for followee in following %}
+        <li class="list-group-item">{{ followee.username }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,24 @@
+<!-- templates/home.html -->
+{% extends "base.html" %}
+{% block content %}
+<h2>Home Feed</h2>
+<form method="POST" action="/post">
+    <textarea name="content" class="form-control mb-2" placeholder="Share something about your pet..." required></textarea>
+    <button type="submit" class="btn btn-primary">Post</button>
+</form>
+
+<h4 class="mt-4">Recent Posts</h4>
+<div id="feed-container">
+{% for post in feed %}
+    <div class="card mb-2">
+        <div class="card-body">
+            <strong>{{ post.username }}</strong>: {{ post.content }}
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+{% endblock %}

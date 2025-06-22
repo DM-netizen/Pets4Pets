@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Sign Up</h2>
+<form method="POST">
+    <input name="username" placeholder="Username" class="form-control mb-2" required>
+    <input name="password" type="password" placeholder="Password" class="form-control mb-2" required>
+    <input name="pet_name" placeholder="Pet Name" class="form-control mb-2" required>
+    <input name="pet_type" placeholder="Pet Type" class="form-control mb-2" required>
+    <input name="pet_age" placeholder="Pet Age" type="number" class="form-control mb-2" required>
+    <input name="pet_breed" placeholder="Pet Breed" class="form-control mb-2" required>
+    <textarea name="pet_details" placeholder="Pet Details" class="form-control mb-2"></textarea>
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+</form>
+<p class="mt-2">Already have an account? <a href="/login">Login</a></p>
+{% endblock %}

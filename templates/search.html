@@ -1,0 +1,32 @@
+<!-- templates/search.html -->
+{% extends "base.html" %}
+{% block content %}
+<h2>Search by Pet Type</h2>
+<form method="POST">
+    <input name="query" placeholder="Enter pet type (e.g., dog, cat)" class="form-control mb-2" required>
+    <button type="submit" class="btn btn-info">Search</button>
+</form>
+
+{% if query %}
+<h4 class="mt-4">Results for "{{ query }}":</h4>
+{% if results %}
+    {% for result in results %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>{{ result.pet_name }} ({{ result.pet_type }} - {{ result.breed }})</h5>
+                <p>Owner: {{ result.owner_name }}</p>
+                {% if result.owner_id != session['user_id'] %}
+                    {% if result.is_following %}
+                        <a href="/unfollow/{{ result.owner_id }}" class="btn btn-warning">Unfollow</a>
+                    {% else %}
+                        <a href="/follow/{{ result.owner_id }}" class="btn btn-success">Follow</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No pets found for this type.</p>
+{% endif %}
+{% endif %}
+{% endblock %}
