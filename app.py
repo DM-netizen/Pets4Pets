@@ -77,6 +77,41 @@ class Twitter:
         else:
             flash('Cannot unfollow as you are not following this user.', 'warning')
 
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_end_of_word = False
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word):
+        node = self.root
+        for ch in word.lower():
+            if ch not in node.children:
+                node.children[ch] = TrieNode()
+            node = node.children[ch]
+        node.is_end_of_word = True
+
+    def starts_with(self, prefix):
+        node = self.root
+        for ch in prefix.lower():
+            if ch not in node.children:
+                return []
+            node = node.children[ch]
+        
+        result = []
+        self._dfs(node, prefix.lower(), result)
+        return result
+
+    def _dfs(self, node, prefix, result):
+        if node.is_end_of_word:
+            result.append(prefix)
+        for ch in node.children:
+            self._dfs(node.children[ch], prefix + ch, result)
+
+trie = Trie()
 twitter = Twitter()
 
 @app.before_request
@@ -144,6 +179,12 @@ def post():
     twitter.postTweet(session['user_id'], content)
     return redirect(url_for('home'))
 
+@app.route('/autocomplete', methods=['GET'])
+def autocomplete():
+    prefix = request.args.get('prefix', '')
+    suggestions = trie.starts_with(prefix)
+    return jsonify(suggestions)
+
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     if request.method == 'POST':
@@ -203,6 +244,7 @@ def add_pet():
                       details=pet_details, user_id=session['user_id'])
         db.session.add(new_pet)
         db.session.commit()
+        trie.insert(pet_type)
         flash('New pet added successfully!', 'success')
         return redirect(url_for('profile'))
     return render_template('add_pet.html')
@@ -218,5 +260,9 @@ def api_feed():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
+        pet_types = {pet.pet_type for pet in Pet.query.all()}
+        for ptype in pet_types:
+            trie.insert(ptype)
     app.run(debug=True)
+
 

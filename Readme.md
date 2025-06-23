@@ -13,6 +13,7 @@ Pets4Pets is an innovative social media web application designed for pet owners 
 * **Dynamic Home Feed:** Users can view real-time posts from the people they follow.
 * **Post Updates:** Users can share updates/posts about their pets.
 * **Advanced Pet Search:** Search functionality based on pet type, displaying matching pet owners.
+* **Auto-Complete Feature:** Trie based prefix matching to auto complete pet type.
 * **Follow/Unfollow System:** Option to follow/unfollow pet owners directly from search results.
 * **Profile Page:** Displays user information, pet details, follower and following lists.
 * **Flash Messaging:** Informative messages for user actions like following/unfollowing.

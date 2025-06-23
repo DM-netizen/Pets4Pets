@@ -3,7 +3,8 @@
 {% block content %}
 <h2>Search by Pet Type</h2>
 <form method="POST">
-    <input name="query" placeholder="Enter pet type (e.g., dog, cat)" class="form-control mb-2" required>
+    <input list="suggestions" onkeyup="fetchSuggestions()" id="searchInput" name="query" placeholder="Enter pet type (e.g., dog, cat)" class="form-control mb-2" required>
+    <datalist id="suggestions"></datalist>
     <button type="submit" class="btn btn-info">Search</button>
 </form>
 
@@ -29,4 +30,20 @@
     <p>No pets found for this type.</p>
 {% endif %}
 {% endif %}
+<script>
+    function fetchSuggestions() {
+        let prefix = document.getElementById('searchInput').value;
+        if (prefix.length === 0) {
+            document.getElementById('suggestions').innerHTML = '';
+            return;
+        }
+        fetch(`/autocomplete?prefix=${prefix}`)
+        .then(response => response.json())
+        .then(data => {
+            let list = data.map(item => `<option value="${item}">`).join('');
+            document.getElementById('suggestions').innerHTML = list;
+        });
+    }
+</script>
+
 {% endblock %}
